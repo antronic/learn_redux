@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Just vanilla counter with redux</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="./bootstrap.min.css">
+    <script type="text/javascript" src="./redux.min.js"></script>
+    <style type="text/css">
+      html, body {
+        background-color: #ecf0f1;
+      }
+      #counter {
+        background-color: #95a5a6;
+        color: #efefef;
+        margin-top: 1em;
+        padding-top: 1em;
+        padding-bottom: 1em;
+        border-radius: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-8 offset-2 text-center">
+          <h1>Counter Vanilla</h1>
+          <div class="row">
+            <h2 id="counter" class="col-4 offset-4">
+              0
+            </h2>
+          </div>
+          <div class="row">
+            <div class="col text-center">
+              <button class="btn btn-success" id="inc">+</button>
+              <button class="btn btn-danger" id="dec">-</button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col text-center">
+              <button class="btn btn-warning" id="odd">IF ODD</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+
+      // pure function => reducer
+      function counter(state = 0, action) {
+        switch (action.type) {
+          case 'INCREMENT':
+            return state + 1
+          case 'DECREMENT':
+            return state - 1
+          default:
+            return state
+        }
+      }
+
+
+      // createStore(subscribe, dispatch, getState)
+      var store = Redux.createStore(counter)
+      var counterEl = document.getElementById('counter')
+
+      // render function
+      function render() {
+        // getState of current store
+        // convert from number to string
+        counterEl.innerHTML = store.getState().toString()
+      }
+
+      // render for first time
+      render()
+      // when state changes, call render()
+      store.subscribe(render)
+
+      document.getElementById('inc')
+        .addEventListener('click', function() {
+          // dispatch object with key type to counter function (reducer)
+          store.dispatch({
+            type: 'INCREMENT',
+          })
+        })
+
+      document.getElementById('dec')
+        .addEventListener('click', function() {
+          // dispatch object with key type to counter function (reducer)
+          store.dispatch({
+            type: 'DECREMENT',
+          })
+        })
+
+      document.getElementById('odd')
+        .addEventListener('click', function() {
+          // get value from store
+          // if mod with 2 is not 0
+          // (if it's odd, increment!)
+          if (store.getState() % 2 !== 0) {
+            // dispatch object with key type to counter function (reducer)
+            store.dispatch({
+              type: 'INCREMENT',
+            })
+          }
+        })
+
+    </script>
+  </body>
+</html>
