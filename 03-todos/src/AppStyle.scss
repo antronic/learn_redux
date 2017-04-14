@@ -1,0 +1,70 @@
+$bg: #dbdde5;
+
+$primary: #fb3f6b;
+$secondary: #cdb5c7;
+
+$lighten-priamry: #f0d9e1;
+$lighter-primary: #f9829a;
+
+$shadow: #93939a;
+
+* {
+  outline: 0;
+}
+
+html, body, #root {
+  background-color: $bg;
+}
+
+#title {
+  margin-top: 2em;
+  h1 {
+    font-weight: 300;
+    color: #333;
+    font-size: 3.5em;
+  }
+}
+
+.todo-box {
+  margin-top: 2em;
+  padding: 1em 0em;
+  background-color: #fafafe;
+  box-shadow: 0px 10px 5px 0px lighten($shadow, 10%);
+}
+
+#todo-list {
+  margin-top: .5em;
+  .todo {
+    cursor: pointer;
+    p {
+      margin: 0;
+      padding: 1em 0em 0em 0em;
+      border-bottom: 1px solid $shadow;
+      &.completed {
+        text-decoration: line-through;
+        color: #bbb;
+      }
+    }
+  }
+}
+
+#filter {
+  margin-top: 1em;
+  .filter-link {
+    cursor: pointer;
+    padding: .15em .5em;
+    font-size: 1.05em;
+    border-radius: 30px;
+    &:hover {
+      background-color: $shadow;
+      color: #fff;
+    }
+    &.active {
+      background-color: $primary;
+      color: #fff;
+    }
+  }
+  .filter-link + .filter-link {
+    margin-left: .5em;
+  }
+}
